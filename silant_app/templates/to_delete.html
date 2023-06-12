@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="head-container">
+
+        <br>
+        <h3>Вы действительно хотите удалить данные?</h3>
+
+        <hr>
+    </div>
+    <div class="info-container">
+        <p> Информация о техническом обслуживании</p>
+        <div class="scroll-table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Зав. № машины</th>
+                    <th>Вид ТО</th>
+                    <th>Дата проведения ТО</th>
+                    <th>Наработка, м/час</th>
+                    <th>№ заказ-наряда</th>
+                    <th>Дата заказ-наряда</th>
+                    <th>Организация, проводившая ТО</th>
+                </tr>
+                </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ to.machine.number }}</td>
+                        <td>{{ to.type }}</td>
+                        <td>{{ to.to_date }}</td>
+                        <td>{{ to.operating }}</td>
+                        <td>{{ to.order_num }}</td>
+                        <td>{{ to.order_date }}</td>
+                        <td>{{ to.service }}</td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="подтвердить">
+</form>
+
+{% endblock content %}

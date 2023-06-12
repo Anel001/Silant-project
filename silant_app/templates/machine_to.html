@@ -1,0 +1,51 @@
+{% block content %}
+    {% if to_list %}
+        <div class="scroll-table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Вид ТО</th>
+                    <th>Дата проведения ТО</th>
+                    <th>Наработка, м/час</th>
+                    <th>№ заказ-наряда</th>
+                    <th>Дата заказ-наряда</th>
+                    <th>Организация, проводившая ТО</th>
+                    <th class="btn-field"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for to in to_list %}
+                        <tr>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' to.type.id %}">{{ to.type }}</a>
+                            </td>
+                            <td>{{ to.to_date }}</td>
+                            <td>{{ to.operating }}</td>
+                            <td>{{ to.order_num }}</td>
+                            <td>{{ to.order_date }}</td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' to.service.id %}">{{ to.service }}</a>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary mb-2">
+                                    <a class="ref" href="{% url 'to_update' to.id %}">Изменить</a>
+                                </button>
+                                <button class="btn btn-danger">
+                                    <a class="ref text-light" href="{% url 'to_delete' to.id %}">Удалить</a>
+                                </button>
+                            </td>
+                        </tr>
+
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <h2>Данных по техническому обслуживанию не обнаружено</h2>
+    {% endif %}
+
+    <button class="btn btn-secondary mt-3">
+        <a class="ref" href="{% url 'to_create' machine.id %}">Добавить данные</a>
+    </button>
+{% endblock content %}

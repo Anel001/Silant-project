@@ -1,0 +1,110 @@
+
+{% block content %}
+<div class="container">
+    <div class="head-container">
+        <div class="userInfo">
+            {% if is_client%}
+                Клиент: {{ request.user.profile.name }}
+            {% else %}
+                {% if is_service %}
+                    Сервисная компания: {{ request.user.profile.name }}
+                {% else %}
+                    Страница менеджера
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <br>
+        {%if messages %}
+            <div class="alert alert-success">
+                {% for m in messages %}
+                    {{m|safe}}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <h3>Проверьте комплектацию и технические характеристики техники Силант</h3>
+
+        <div class="buttons">
+            <button class="btn btn-primary"> <a class="ref text-white" href="/">Общая информация</a> </button>
+            <button class="btn btn-primary"> <a class="ref text-white" href="{% url 'main' %}">ТО</a> </button>
+            <button class="btn btn-primary"> <a class="ref text-white" href="{% url 'reclamation' %}">Рекламации</a> </button>
+        </div>
+        <hr>
+    </div>
+
+    <div class="info-container">
+        <div class="fil-form">
+            <form action="" method="get" >
+                 <div class="filter-form">
+                     {% for field in filterset.form %}
+                         <div>
+                             {{ field.label_tag }}
+                             {{ field }}
+                         </div>
+
+                     {% endfor %}
+                 </div>
+                <input class="btn btn-secondary mb-4 mt-3" type="submit" value="Найти" />
+            </form>
+        </div>
+        {% if users_machines.qs %}
+            <p> Информация о комплектации и технических характеристиках Вашей техники</p>
+            <div class="scroll-table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Зав. № машины</th>
+                        <th>Модель техники</th>
+                        <th>Зав. № двигателя</th>
+                        <th>Зав. № трансмиссии</th>
+                        <th>Зав. № ведущего моста</th>
+                        <th>Зав. № управляемого моста</th>
+                        <th>Покупатель</th>
+                        <th>Грузополучатель</th>
+                        <th>Адрес поставки</th>
+                        <th>Комплектация</th>
+                        <th>Сервисная компания</th>
+                    </tr>
+                    </thead>
+                    {% for machine in users_machines.qs %}
+                        <tbody>
+                        <tr>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'machine' machine.id %}">{{ machine.number }}</a>
+                            </td>
+                            <td class="selected">
+                                <a class=" ref text-dark" href="{% url 'sprav' machine.tech_model.id %}">{{ machine.tech_model }}</a>
+                            </td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' machine.eng_model.id %}"> {{ machine.eng_num }}</a>
+                            </td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' machine.tran_model.id %}">{{ machine.tran_num }}</a>
+                            </td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' machine.drive_axle.id %}">{{ machine.drive_num }}</a>
+                            </td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' machine.steer_axle.id %}">{{ machine.steer_num }}</a>
+                            </td>
+                            <td>{{ machine.client.name }}</td>
+                            <td>{{ machine.consumer }}</td>
+                            <td>{{ machine.address }}</td>
+                            <td>{{ machine.package }}</td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' machine.service.id %}">{{ machine.service }}</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    {%endfor%}
+                </table>
+            </div>
+            <br>
+        {% else %}
+            <h2>Машин не найдено</h2>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="head-container">
+        <h3>Справочник с информацией</h3>
+        <hr>
+    </div>
+
+    <div class="info-container">
+        <div >
+            <table class="spravochnik table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ type_name }}</th>
+                    <th>Описание</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ sprav.name }}</td>
+                    <td>{{ sprav.description }}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock content %}

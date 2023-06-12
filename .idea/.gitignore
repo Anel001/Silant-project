@@ -1,0 +1,5 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+../silant_app/silant_app/__pycache__
+../silant_app/base/__pycache__

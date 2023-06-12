@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="head-container">
+
+        <h3>Машина: {{machine.number}}</h3>
+
+        <div class="buttons">
+            <button onclick="myFunction1()" class="btn btn-primary"> Общая информация </button>
+            <button onclick="myFunction2()" class="btn btn-primary"> ТО </button>
+            <button onclick="myFunction3()" class="btn btn-primary"> Рекламации </button>
+        </div>
+        <hr>
+    </div>
+
+    <div class="info-container">
+        <p> Информация о комплектации и технических характеристиках Вашей техники</p>
+        {%if messages %}
+            <div class="alert alert-success">
+                {% for m in messages %}
+                    {{m|safe}}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div id="machineInfo" class="scroll-table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Модель техники</th>
+                    <th>Зав. № двигателя</th>
+                    <th>Зав. № трансмиссии</th>
+                    <th>Зав. № ведущего моста</th>
+                    <th>Зав. № управляемого моста</th>
+                    <th>Покупатель</th>
+                    <th>Грузополучатель</th>
+                    <th>Адрес поставки</th>
+                    <th>Комплектация</th>
+                    <th>Сервисная компания</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.tech_model.id %}">{{ machine.tech_model }}</a>
+                    </td>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.eng_model.id %}"> {{ machine.eng_num }}</a>
+                    </td>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.tran_model.id %}">{{ machine.tran_num }}</a>
+                    </td>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.drive_axle.id %}">{{ machine.drive_num }}</a>
+                    </td>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.steer_axle.id %}">{{ machine.steer_num }}</a>
+                    </td>
+                    <td>{{ machine.client.name }}</td>
+                    <td>{{ machine.consumer }}</td>
+                    <td>{{ machine.address }}</td>
+                    <td>{{ machine.package }}</td>
+                    <td class="selected">
+                        <a class="ref text-dark" href="{% url 'sprav' machine.service.id %}">{{ machine.service }}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="toInfo">
+            {% include "machine_to.html"  %}
+        </div>
+
+        <div id="reclamsInfo">
+            {% include "machine_reclams.html"  %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

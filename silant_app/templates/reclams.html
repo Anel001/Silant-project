@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="head-container">
+        <div class="userInfo">
+            {% if is_client%}
+                Клиент: {{ request.user.profile.name }}
+            {% else %}
+                {% if is_service %}
+                    Сервисная компания: {{ request.user.profile.name }}
+                {% else %}
+                    Страница менеджера
+                {% endif %}
+            {% endif %}
+        </div>
+        <br>
+        <h3>Проверьте комплектацию и технические характеристики техники Силант</h3>
+
+        <div class="buttons">
+            <button class="btn btn-primary"> <a class="ref text-white" href="/">Общая информация</a> </button>
+            <button class="btn btn-primary"> <a class="ref text-white" href="{% url 'main' %}">ТО</a> </button>
+            <button class="btn btn-primary"> <a class="ref text-white" href="{% url 'reclamation' %}">Рекламации</a> </button>
+        </div>
+        <hr>
+    </div>
+    <div class="info-container">
+        <div class="fil-form">
+            <form action="" method="get" >
+                 <div class="filter-form">
+                     {% for field in filterset.form %}
+                         <div>
+                             {{ field.label_tag }}
+                             {{ field }}
+                         </div>
+
+                     {% endfor %}
+                 </div>
+                <input class="btn btn-secondary mb-4 mt-3" type="submit" value="Найти" />
+            </form>
+        </div>
+        {% if is_exist %}
+            <p> Информация о комплектации и технических характеристиках Вашей техники</p>
+            <div class="scroll-table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Зав. № машины</th>
+                        <th>Дата отказа</th>
+                        <th>Наработка, м/час</th>
+                        <th>Узел отказа</th>
+                        <th>Описание отказа</th>
+                        <th>Способ восстановления</th>
+                        <th>Используемые запасные части</th>
+                        <th>Дата восстановления</th>
+                        <th>Время простоя техники</th>
+                        <th>Сервисная организация</th>
+                    </tr>
+                    </thead>
+                    {% for reclam in filterset.qs %}
+                        {% if reclam.machine in users_machines %}
+                            <tbody>
+                            <tr>
+                                <td class="selected">
+                                    <a class="ref text-dark" href="{% url 'machine' reclam.machine.id %}">{{ reclam.machine.number }}</a>
+                                </td>
+                                <td>{{ reclam.fail_date }}</td>
+                                <td>{{ reclam.operating }}</td>
+                                <td class="selected">
+                                    <a class="ref text-dark" href="{% url 'sprav' reclam.fail_node.id %}">{{ reclam.fail_node }}</a>
+                                </td>
+                                <td>{{ reclam.fail_descrip }}</td>
+                                <td class="selected">
+                                    <a class="ref text-dark" href="{% url 'sprav' reclam.recovery.id %}">{{ reclam.recovery  }}</a>
+                                </td>
+                                <td>{{ reclam.parts }}</td>
+                                <td>{{ reclam.recovery_date }}</td>
+                                <td>{{ reclam.idleness }} дней</td>
+                                <td class="selected">
+                                    <a class="ref text-dark" href="{% url 'sprav' reclam.service.id %}">{{ reclam.service }}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endif %}
+                    {%endfor%}
+                </table>
+            </div>
+            <br>
+        {% else %}
+            <h2>Данных по рекламациям не обнаружено</h2>
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

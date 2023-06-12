@@ -1,0 +1,163 @@
+@font-face{
+    font-family: 'PT-Astra-Sans';
+    src: url('../fonts/PT-Astra-Sans_Regular.ttf') format('ttf');
+    font-weight: 800;
+}
+
+@font-face {
+  font-family: 'PT-Astra-Sans-Italic';
+  src: url('../fonts/PT-Astra-Sans_Italic.ttf') format('ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'PT-Astra-Sans-Bold';
+  src: url('../fonts/PT-Astra-Sans_Bold.ttf') format('ttf');
+  font-style: bold;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'PT-Astra-Sans-BoldItalic';
+  src: url('../fonts/PT-Astra-Sans_Bold-Italic.ttf') format('ttf');
+  font-weight: 400;
+}
+
+
+.table {
+    border-color: #212529;
+    width: 1500px;
+}
+
+.table-bordered>thead>tr>th {
+    border-width: 2px;
+    vertical-align: middle;
+}
+
+.table-bordered>tbody>tr>td {
+    border-width: 2px;
+}
+
+.scroll-table {
+    max-width: 1500px;
+    overflow: scroll;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: "PT-Astra-Sans";
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+.wrapper {
+  min-height: 100%;
+}
+.main-info {
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+footer {
+    background-color: #163E6C;
+  height: 100px;
+  margin-top: -60px;
+}
+
+.ref {
+    text-decoration: none;
+    color: #163E6C;
+}
+
+.ref:hover{
+    color: white;
+}
+
+
+.buttons {
+    margin-top: 70px;;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn {
+    padding: 6px 20px;
+    margin: 3px;
+}
+
+#toInfo {
+    display: none;
+}
+
+#reclamsInfo {
+    display: none;
+}
+
+
+.btn-field {
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+}
+
+.spravochnik {
+    width: 100%;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.fil-form {
+    margin-bottom: 50px;
+}
+
+.selected:hover {
+    background: #e0e0e0;
+}
+
+nav {
+    background-color: #163E6C;
+}
+
+.userInfo {
+    margin-top: -20px;
+    padding: 10px;
+    border: 2px solid #707070;
+    border-radius: 10px;
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: 'PT-Astra-Sans-Bold';
+
+}
+
+
+.btn-primary {
+    background-color: #D20A11;
+    border-color: #ba090f;
+}
+
+.btn-secondary {
+    color: #163E6C;
+    background-color: #EBE6D6;
+    border-color: #163E6C;
+}
+
+
+.login-form {
+    width: 30%;
+    margin: 0 auto;
+}
+
+
+#saveBtn {
+    width: 100%;
+}

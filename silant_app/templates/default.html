@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+    {% include "users_info.html"  %}
+{% else %}
+<div class="container">
+    <div class="head-container">
+        <h3>Проверьте комплектацию и технические характеристики техники Силант</h3>
+
+        <form action="" method="get">
+            {{ filterset.form.non_field_errors }}
+            {{ filterset.form.number.errors }}
+
+            <input
+                id="{{ filterset.form.number.id }}"
+                placeholder="Зав. № машины"
+                name="{{ filterset.form.number.name }}"
+            >
+            <input type="submit" class="mt-3 btn-primary" value="Найти" />
+        </form>
+        <hr>
+    </div>
+    <div class="info-container">
+        {%if messages %}
+            <div class="alert alert-success">
+                {% for m in messages %}
+                    {{m|safe}}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if is_set %}
+            {% if machines.qs %}
+                <p> Информация о комплектации и технических характеристиках Вашей техники</p>
+                <div class="scroll-table">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Модель техники</th>
+                            <th>Модель двигателя</th>
+                            <th>Зав. № двигателя</th>
+                            <th>Модель трансмиссии</th>
+                            <th>Зав. № трансмиссии</th>
+                            <th>Модель ведущего моста</th>
+                            <th>Зав. № ведущего моста</th>
+                            <th>Модель управляемого моста</th>
+                            <th>Зав. № управляемого моста</th>
+                        </tr>
+                        </thead>
+                        {% for machine in machines.qs %}
+                        <tbody>
+                        <tr>
+                            <td>{{ machine.tech_model }}</td>
+                            <td>{{ machine.eng_model }}</td>
+                            <td>{{ machine.eng_num }}</td>
+                            <td>{{ machine.tran_model }}</td>
+                            <td>{{ machine.tran_num }}</td>
+                            <td>{{ machine.drive_axle }}</td>
+                            <td>{{ machine.drive_num }}</td>
+                            <td>{{ machine.steer_axle }}</td>
+                            <td>{{ machine.steer_num }}</td>
+                        </tr>
+                        </tbody>
+                        {%endfor%}
+                    </table>
+                </div>
+                <br>
+            {% else %}
+                <h2>По данному номеру машин нет!</h2>
+            {% endif %}
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endif %}
+{% endblock content %}

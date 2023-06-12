@@ -1,0 +1,61 @@
+{% block content %}
+    {% if reclam_list %}
+        <div class="scroll-table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Дата отказа</th>
+                    <th>Наработка, м/час</th>
+                    <th>Узел отказа</th>
+                    <th>Описание отказа</th>
+                    <th>Способ восстановления</th>
+                    <th>Используемые запасные части</th>
+                    <th>Дата восстановления</th>
+                    <th>Время простоя техники</th>
+                    <th>Сервисная организация</th>
+                    {% if not is_client%}<th class="btn-field"></th>{% endif %}
+                </tr>
+                </thead>
+                    {% for reclam in reclam_list %}
+                        <tbody>
+                        <tr>
+                            <td>{{ reclam.fail_date }}</td>
+                            <td>{{ reclam.operating }}</td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' reclam.fail_node.id %}">{{ reclam.fail_node }}</a>
+                            </td>
+                            <td>{{ reclam.fail_descrip }}</td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' reclam.recovery.id %}">{{ reclam.recovery  }}</a>
+                            </td>
+                            <td>{{ reclam.parts }}</td>
+                            <td>{{ reclam.recovery_date }}</td>
+                            <td>{{ reclam.idleness }} дней</td>
+                            <td class="selected">
+                                <a class="ref text-dark" href="{% url 'sprav' reclam.service.id %}">{{ reclam.service }}</a>
+                            </td>
+                            {% if not is_client%}
+                                <td>
+                                    <button class="btn btn-secondary mb-2">
+                                        <a class="ref" href="{% url 'reclam_update' reclam.id %}">Изменить</a>
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        <a class="ref text-light" href="{% url 'reclam_delete' reclam.id %}">Удалить</a>
+                                    </button>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                    {%endfor%}
+            </table>
+        </div>
+
+    {% else %}
+        <h2>Данных по рекламациям не обнаружено</h2>
+    {% endif %}
+    {% if not is_client%}
+        <button class="btn btn-secondary mt-3">
+            <a class="ref" href="{% url 'reclam_create' machine.id %}">Добавить данные</a>
+        </button>
+    {% endif %}
+{% endblock content %}

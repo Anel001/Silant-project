@@ -1,0 +1,41 @@
+{% extends "account/base.html" %}
+
+{{% load widget_tweaks %}
+
+{% block head_title %}Авторизация{% endblock %}
+
+{% block content %}
+<div class="containermt-5">
+    <h4 class="text-center mt-5 mb-3"> Войти в систему </h4> <br>
+    <div class="login-form" >
+      <form class="pt-3 " method="POST" action="{% url 'account_login' %}">
+        <div class="form-group">
+
+          {% csrf_token %}
+          {{ form.non_field_errors | safe }}
+          <input type="hidden" name="remember" value="true" />
+            <div class="md-form mb-3">
+              {{ form.email.errors | safe }}
+              <label for="email" class="sr-only">Почта</label>
+              {% render_field form.login class="form-control" placeholder="Email"%}
+            </div>
+            <div class="md-form mb-3">
+              {{ form.password.errors | safe }}
+              <label for="password" class="sr-only">Пароль</label>
+              {% render_field form.password class="form-control" placeholder="Пароль"%}
+            </div>
+
+
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button type="submit" id="saveBtn" class="btn btn-primary">Войти</button>
+        </div>
+      </form>
+    </div>
+
+  <div class="text-center my-3">
+    <a class="ref-login" href="{% url 'base' %}"><u>Перейти к основной панели</u></a>
+  </div>
+</div>
+{% endblock %}

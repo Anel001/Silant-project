@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="head-container">
+
+        <br>
+        <h3>Вы действительно хотите удалить данные?</h3>
+
+        <hr>
+    </div>
+    <div class="info-container">
+        <p> Информация о рекламации</p>
+        <div class="scroll-table">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Зав. № машины</th>
+                        <th>Дата отказа</th>
+                        <th>Наработка, м/час</th>
+                        <th>Узел отказа</th>
+                        <th>Описание отказа</th>
+                        <th>Способ восстановления</th>
+                        <th>Используемые запасные части</th>
+                        <th>Дата восстановления</th>
+                        <th>Время простоя техники</th>
+                        <th>Сервисная организация</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ reclam.machine.number }}</td>
+                        <td>{{ reclam.fail_date }}</td>
+                        <td>{{ reclam.operating }}</td>
+                        <td>{{ reclam.fail_node }}</td>
+                        <td>{{ reclam.fail_descrip }}</td>
+                        <td>{{ reclam.recovery  }}</td>
+                        <td>{{ reclam.parts }}</td>
+                        <td>{{ reclam.recovery_date }}</td>
+                        <td>{{ reclam.idleness }} дней</td>
+                        <td>{{ reclam.service }}</td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="подтвердить">
+</form>
+
+{% endblock content %}
