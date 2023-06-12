@@ -4,7 +4,7 @@ My Silant is a service for tracking the status of each purchased car and all its
 ## Download & Setup Instructions
 * 1 - CLone project
 ```
-git clone https://github.com/Anel001/silant-project/
+git clone https://github.com/Anel001/Silant-project/
 ```
 * 2 - Go to folder
 ```
